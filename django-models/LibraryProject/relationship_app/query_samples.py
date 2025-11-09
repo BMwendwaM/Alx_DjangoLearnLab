@@ -18,6 +18,5 @@ for book in books:
 
 
 # RETRIEVE A LIBRARIAN
-library = Library.objects.get(name="LIBRARY")
-librarian = library.librarian
+librarian = Librarian.objects.get(library="LIBRARY")
 print(librarian.name)
