@@ -6,7 +6,7 @@ books = Book.objects.filter(author=author)
 
 
 # LIST ALL BOOKS IN A LIBRARY
-library = Library.objects.get(name="library_name")
+library = Library.objects.get(name=library_name)
 books = library.books.all()
 for i in books:
     print(i)
@@ -15,5 +15,5 @@ for i in books:
 
 # RETRIEVE A LIBRARIAN
 library = Library.objects.get(name="LIBRARY")
-librarian = Library.Librarian
-print(Librarian.name)
+librarian = library.librarian
+print(librarian.name)
