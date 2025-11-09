@@ -44,7 +44,7 @@ ROLE_CHOICES = [
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.Case)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=100, choices=ROLE_CHOICES)
 
     def __str__(self):
@@ -59,17 +59,17 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 # Admin view
-@user_passes_test()
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Admin')
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
 # Librarian view
-@user_passes_test()
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Librarian')
 def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 
 # Member view
-@user_passes_test()
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Member')
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
