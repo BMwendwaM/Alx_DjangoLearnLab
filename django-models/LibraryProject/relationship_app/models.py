@@ -1,4 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
+
 
 # MODELS
 
@@ -24,3 +31,45 @@ class Library(models.Model):
 class Librarian(models.Model):
     name = models.CharField(max_length=100)
     library = models.OneToOneField(Library, on_delete=models.CASCADE)
+
+
+
+# USER MODEL ROLE_BASED VIEWS
+# Define roles
+ROLE_CHOICES = [
+    ('Admin', 'Admin'),
+    ('Librarian', 'Librarian'),
+    ('Member', 'Member'),
+]
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.Case)
+    role = models.CharField(max_length=100, choices=ROLE_CHOICES)
+
+    def __str__(self):
+        return f"{self.user} - {self.role}"
+    
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+
+# Admin view
+@user_passes_test()
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+# Librarian view
+@user_passes_test()
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+# Member view
+@user_passes_test()
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
+
