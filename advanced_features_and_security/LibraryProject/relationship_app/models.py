@@ -61,7 +61,7 @@ ROLE_CHOICES = [
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="relationship_profile")
     role = models.CharField(max_length=100, choices=ROLE_CHOICES)
 
     def __str__(self):

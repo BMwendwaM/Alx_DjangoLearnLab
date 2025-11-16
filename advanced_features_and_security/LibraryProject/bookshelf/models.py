@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.conf import settings
 from django.db import models
+
 
 
 
@@ -41,5 +43,30 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        permissions = [
+            ("can_view", "Can view books"),
+            ("can_create", "Can create books"),
+            ("can_edit", "Can edit books"),
+            ("can_delete", "Can delete books"),
+        ]
+    
     def __str__(self):
         return f"{self.title} by {self.author} - {self.publication_year}"
+    
+
+# USER MODEL ROLE_BASED VIEWS
+# Define roles
+ROLE_CHOICES = [
+    ('Admin', 'Admin'),
+    ('Librarian', 'Librarian'),
+    ('Member', 'Member'),
+]
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="bookshelf_profile")
+    role = models.CharField(max_length=100, choices=ROLE_CHOICES)
+
+    def __str__(self):
+        return f"{self.user} - {self.role}"
