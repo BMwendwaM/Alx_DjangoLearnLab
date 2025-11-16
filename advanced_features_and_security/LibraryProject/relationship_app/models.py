@@ -1,22 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, UserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import render
 from django.conf import settings
 from django.db import models
 
-
-# CustomeUser
-
-class CustomUserManager(UserManager):
-    pass
-
-class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(null=True, blank=True)
-    profile_photo = models.ImageField(null=True, blank=True)
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = [] 
 
 
 # MODELS

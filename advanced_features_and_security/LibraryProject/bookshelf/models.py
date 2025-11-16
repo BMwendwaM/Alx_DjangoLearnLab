@@ -1,6 +1,21 @@
+from django.contrib.auth.models import User, AbstractUser, UserManager
+
 from django.db import models
 
-# Create your models here.
+
+
+
+# CustomeUser
+
+class CustomUserManager(UserManager):
+    pass
+
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(null=True, blank=True)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = [] 
+
 # Create book class.
 
 class Book(models.Model):

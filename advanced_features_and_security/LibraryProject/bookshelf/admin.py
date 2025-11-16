@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser
 
-# Register your models here.
 # Register Book model and custom admin panel
 
 from django.contrib import admin
@@ -14,3 +15,14 @@ class BookAdmin(admin.ModelAdmin):
 # Register model + custom admin class
 
 admin.site.register(Book, BookAdmin)
+
+
+
+@admin.register(CustomUser)
+class CustomUserAdmin(UserAdmin):
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional Information", {'fields': ('date_of_birth', 'profile_photo')}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ("Additional Information", {'fields': ('date_of_birth', 'profile_photo')}),
+    )
