@@ -6,7 +6,6 @@ from django.conf import settings
 from django.db import models
 
 
-
 # MODELS
 
 class Author(models.Model):
@@ -39,7 +38,17 @@ class Library(models.Model):
 class Librarian(models.Model):
     name = models.CharField(max_length=100)
     library = models.OneToOneField(Library, on_delete=models.CASCADE)
+    
+    class Meta:
+        permissions = [
+            ("can_view", "Can view books"),
+            ("can_create", "Can create books"),
+            ("can_edit", "Can edit books"),
+            ("can_delete", "Can delete books"),
+        ]
 
+    def __str__(self):
+        return self.name
 
 
 # USER MODEL ROLE_BASED VIEWS

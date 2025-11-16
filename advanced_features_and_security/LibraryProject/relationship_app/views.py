@@ -82,15 +82,19 @@ def member_view(request):
 
 # PERMISSION VIEWS
 
-@permission_required("relationship_app.can_add_book")
+@permission_required("relationship_app.can_add_book", raise_exception=True)
 def add_book(request):
    if request.method == 'POST':
       return render(request, 'relationship_app/add_book.html')
 
-@permission_required('relationship_app.can_change_book')
-def edit_book(request):
+@permission_required("relationship_app.can_change_book", raise_exception=True)
+def change_book(request):
    return render(request, 'relationship_app/edit_book.html')
 
-@permission_required('relationship_app.can_delete_book')
+@permission_required("relationship_app.can_delete_book", raise_exception=True)
 def delete_book(request):
    return render(request, 'relationship_app/delete_book.html')
+
+@permission_required("relationship_app.can_edit_book", raise_exception=True)
+def edit_book(request):
+   return render(request, 'relationship_app/edit_book.html')
