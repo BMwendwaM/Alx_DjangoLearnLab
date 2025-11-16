@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from .models import Book
 
 # PERMISSION VIEWS
 
@@ -19,3 +20,10 @@ def delete_book(request):
 @permission_required("bookshelf.can_edit", raise_exception=True)
 def edit_book(request):
    return render(request, 'bookshelf/edit_book.html')
+
+
+# List books view
+def book_list(request):
+    books = Book.objects.all()
+    context = {"books": books}
+    return render(request, "bookshelf/book_list.html", context)
