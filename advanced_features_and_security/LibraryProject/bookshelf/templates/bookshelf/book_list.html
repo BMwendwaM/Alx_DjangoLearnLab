@@ -1,0 +1,12 @@
+{% for book in books %}
+<tr>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.publication_year }}</td>
+    <td>
+        <a href="{% url 'view_book' book.id %}">View</a> |
+        <a href="{% url 'edit_book' book.id %}">Edit</a> |
+        <a href="{% url 'delete_book' book.id %}">Delete</a>
+    </td>
+</tr>
+{% endfor %}

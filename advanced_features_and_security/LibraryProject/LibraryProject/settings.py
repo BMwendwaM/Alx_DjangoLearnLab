@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9g%g*^-4)l#_wv%yfa_83kx=re7ic*(*&ebpa5*29iib_^y@o4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False # Turned off for production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf.apps.BookshelfConfig',
-    'relationship_app.apps.RelationshipAppConfig',
 ]
 
 # CustomUser
@@ -47,6 +46,7 @@ AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,3 +127,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SECURITY SETTINGS
+SECURE_BROWSER_XSS_FILTER = True           
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking                  
+SECURE_CONTENT_TYPE_NOSNIFF = True         
+CSRF_COOKIE_SECURE = True                
+SESSION_COOKIE_SECURE = True # Send session cookie only over HTTPS
+
+
+# Content Security Policy (CSP) settings
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_IMG_SRC = ("'self'", 'data:')
