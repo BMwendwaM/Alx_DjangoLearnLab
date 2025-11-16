@@ -143,3 +143,13 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
 CSP_IMG_SRC = ("'self'", 'data:')
+
+
+SECURE_SSL_REDIRECT = True                  # Redirect all HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000              # Tell browsers to use HTTPS for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True       # Apply HSTS to all subdomains 
+SECURE_HSTS_PRELOAD = True                  # Allow site to be included in browsers' HSTS preload list
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  
+# Tells Django that requests forwarded by a proxy with X-Forwarded-Proto=https are secure.
