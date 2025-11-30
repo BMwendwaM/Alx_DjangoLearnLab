@@ -6,7 +6,6 @@ from .models import Author, Book
 
 # Tests for Book API endpoints
 
-
 class BookAPITests(APITestCase):
 
     def setUp(self):
@@ -46,7 +45,7 @@ class BookAPITests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    # ---------------- UNAUTH CREATE ----------------
+    # Unauthenticated tests
     def test_create_book_unauthenticated(self):
         data = {
             "title": "New Book",
@@ -56,13 +55,11 @@ class BookAPITests(APITestCase):
         response = self.client.post(reverse("book-create"), data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    # ---------------- UNAUTH UPDATE ----------------
     def test_update_book_unauthenticated(self):
         data = {"title": "Updated"}
         response = self.client.patch(reverse("book-update", args=[self.book.id]), data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    # ---------------- UNAUTH DELETE ----------------
     def test_delete_book_unauthenticated(self):
         response = self.client.delete(reverse("book-delete", args=[self.book.id]))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
