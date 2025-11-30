@@ -1,14 +1,18 @@
 from django.test import TestCase
 from rest_framework.test import APITestCase
+from django.contrib.auth.models import User
 from rest_framework import status
 from django.urls import reverse
 from .models import Author, Book
 
 # Tests for Book API endpoints
 
-class BookAPITests(APITestCase):
+class TestBookAPITests(APITestCase):
 
     def setUp(self):
+        # Create a user for authenticated tests
+        self.user = User.objects.create_user(username="testuser", password="pass1234")
+
         # Create an author
         self.author = Author.objects.create(name="Bonnie")
 
@@ -21,6 +25,7 @@ class BookAPITests(APITestCase):
 
     # List books
     def test_list_books(self):
+        self.client.login(username="testuser", password="pass1234")
         response = self.client.get(reverse("book-list"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
