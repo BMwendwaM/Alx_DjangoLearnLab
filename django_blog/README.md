@@ -91,3 +91,18 @@ Templates provide user-friendly interfaces for listing posts, viewing full conte
 deletions.
 The system has been thoroughly tested to ensure secure data handling, correct form validation, and smooth navigation 
 between views.
+
+
+** COMMENT SYSTEM FEATURE **
+Users can view comments under each blog post.
+Authenticated users can add, edit, or delete their own comments.
+Permissions ensure only the author of a comment can modify or remove it.
+The system validates comment content and prevents empty submissions.
+URLs for comment operations are intuitive:
+
+posts/<post_id>/comments/new/ → Add a comment
+comments/<comment_id>/edit/ → Edit a comment
+comments/<comment_id>/delete/ → Delete a comment
+
+Templates are integrated into the blog post detail page for seamless user interaction.
+Testing ensures correct functionality and secure access control.
