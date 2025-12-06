@@ -78,3 +78,16 @@ Ensure logout redirects properly
 Profile Update
 Change username, email, bio, picture
 Confirm data saves and updates
+
+
+** BLOG POST FEATURES **
+
+The blog post management system in this Django project allows users to create, view, update and delete posts seamlessly.
+Authenticated users can create new posts and edit or delete only the posts they authored, while all users can view post 
+lists and details.
+Each CRUD operation is backed by Django class-based views, forms and templates, with proper access control enforced using 
+LoginRequiredMixin and UserPassesTestMixin.
+Templates provide user-friendly interfaces for listing posts, viewing full content, submitting forms and confirming 
+deletions.
+The system has been thoroughly tested to ensure secure data handling, correct form validation, and smooth navigation 
+between views.
