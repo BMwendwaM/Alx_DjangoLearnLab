@@ -33,9 +33,12 @@ class ProfileUpdateForm(forms.ModelForm):
 # Form for Post Model
 
 class PostForm(forms.ModelForm):
+    # Tags field added.
+    tags = forms.CharField(required=False, help_text="Comma-separated tags")
+    
     class Meta:
         model = Post
-        fields = ["title", "content"]
+        fields = ["title", "content", "tags"]
 
 
 # Comment Form 

@@ -8,6 +8,14 @@
   <p>By {{ object.author.username }} • {{ object.published_date|date:"M j, Y H:i" }}</p>
   <div>{{ object.content|linebreaks }}</div>
 
+  <p><strong>Tags:</strong>
+    {% for tag in object.tags.all %}
+        <a href="{% url 'posts-by-tag' tag.slug %}">{{ tag.name }}</a>
+        {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+
+
   {% if user == object.author %}
     <p>
       <a href="{% url 'post-update' object.pk %}">Edit</a> |

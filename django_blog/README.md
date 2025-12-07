@@ -106,3 +106,11 @@ comments/<comment_id>/delete/ → Delete a comment
 
 Templates are integrated into the blog post detail page for seamless user interaction.
 Testing ensures correct functionality and secure access control.
+
+
+** Tags Feature **
+Posts now support tagging using django-taggit.
+Tags can be added during post creation or editing as comma-separated values.
+Tags are displayed on each post and clicking a tag shows all posts using that tag.
+A search bar allows searching posts by title, content, or tag name.
+Search results are shown on a dedicated results page.

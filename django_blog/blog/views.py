@@ -6,6 +6,9 @@ from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
+from taggit.models import Tag
+
 
 
 
@@ -162,3 +165,27 @@ def CommentDeleteView(request, comment_id):
         return redirect("post_detail", pk=comment.post.pk)
 
     return render(request, "blog/comment_delete.html", {"comment": comment})
+
+
+# Search View - by multiple parameters
+
+def search_posts(request):
+    query = request.GET.get("q")
+    results = []
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(request, "blog/search_results.html", {"query": query, "results": results})
+
+# View to filter posts by tag
+
+
+def posts_by_tag(request, tag_slug):
+    tag = Tag.objects.get(slug=tag_slug)
+    posts = Post.objects.filter(tags__in=[tag])
+    return render(request, "blog/posts_by_tag.html", {"tag": tag, "posts": posts})
