@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, Post, Comment
+from taggit.forms import TagWidget
 
 
 # Form for creating a new user
@@ -34,11 +35,12 @@ class ProfileUpdateForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     # Tags field added.
-    tags = forms.CharField(required=False, help_text="Comma-separated tags")
-    
     class Meta:
         model = Post
         fields = ["title", "content", "tags"]
+        widgets = {
+            'tags': TagWidget(),
+        }
 
 
 # Comment Form 
