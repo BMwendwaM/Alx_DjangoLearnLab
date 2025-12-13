@@ -9,7 +9,8 @@ from .serializers import RegistrationSerializer, LoginSerializer, UserSerializer
 
 # Get the custom user model
 
-User = get_user_model()
+CustomUser = get_user_model()
+CustomUser.objects.all()
 
 # Registration View
 
@@ -56,10 +57,10 @@ class ProfileView(APIView):
 
 class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
-        user_to_follow = get_object_or_404(User, pk=user_id)
+        user_to_follow = get_object_or_404(CustomUser, pk=user_id)
         
         # Prevent users from following themselves
         if user_to_follow == request.user:
@@ -71,10 +72,10 @@ class FollowUserView(generics.GenericAPIView):
 
 class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
-        user_to_unfollow = get_object_or_404(User, pk=user_id)
+        user_to_unfollow = get_object_or_404(CustomUser, pk=user_id)
         
         if user_to_unfollow not in request.user.following.all():
             return Response({"error": "You are not following this user."}, status=status.HTTP_400_BAD_REQUEST)
