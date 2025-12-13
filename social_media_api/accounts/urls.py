@@ -7,6 +7,6 @@ urlpatterns = [
     path("profile/", ProfileView.as_view(), name="profile"),
 
     # New Follow/Unfollow URL patterns
-    path("follow/<int:pk>/", FollowUserView.as_view(), name="follow-user"),
-    path("unfollow/<int:pk>/", UnfollowUserView.as_view(), name="unfollow-user"),
+    path("follow/<int:user_id>/", FollowUserView.as_view(), name="follow-user"),
+    path("unfollow/<int:user_id>/", UnfollowUserView.as_view(), name="unfollow-user"),
 ]
