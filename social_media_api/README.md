@@ -22,3 +22,10 @@ The feed endpoint at '/api/posts/feed/' returns posts from all users the current
 from newest to oldest. All endpoints require authentication via token in the Authorization header.
 This setup ensures users can only interact with accounts they follow and provides a dynamic, personalized 
 feed, while maintaining secure access control and efficient database queries.
+
+Users can like or unlike posts by sending POST requests to '/api/posts/<post_id>/like/' or '/api/posts/
+<post_id>/unlike/'.
+Every like triggers a notification to the post author, which can be fetched at '/api/notifications/'.
+All actions require authentication via token in the Authorization header.
+The notifications endpoint returns the most recent interactions first, keeping users informed and engaged 
+with relevant activities on the platform.
