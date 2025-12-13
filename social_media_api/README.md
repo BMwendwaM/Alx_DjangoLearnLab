@@ -15,3 +15,10 @@ endpoints follow RESTful conventions and the included serializers validate input
 integrity.
 This setup enables a secure and maintainable backend ready for integration with front-end clients or 
 mobile applications.
+
+Users can manage their social connections with the follow system by sending POST requests to '/api/
+accounts/follow/<user_id>/' to follow a user and '/api/accounts/unfollow/<user_id>/' to unfollow.
+The feed endpoint at '/api/posts/feed/' returns posts from all users the current user follows, ordered
+from newest to oldest. All endpoints require authentication via token in the Authorization header.
+This setup ensures users can only interact with accounts they follow and provides a dynamic, personalized 
+feed, while maintaining secure access control and efficient database queries.
